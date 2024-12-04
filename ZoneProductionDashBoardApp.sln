@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZoneProductionDashBoard", "
 		{DB538779-6578-4E79-89D1-412A5A14EC69} = {DB538779-6578-4E79-89D1-412A5A14EC69}
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZoneProductionLibrary", "ZoneProductionLibrary\ZoneProductionLibrary.csproj", "{DB538779-6578-4E79-89D1-412A5A14EC69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ZoneLibrary", "ZoneLibrary\ZoneLibrary.csproj", "{DB538779-6578-4E79-89D1-412A5A14EC69}"
 	ProjectSection(ProjectDependencies) = postProject
 		{96CFB235-2670-4DF0-8734-9367B0BBA2EE} = {96CFB235-2670-4DF0-8734-9367B0BBA2EE}
 	EndProjectSection
