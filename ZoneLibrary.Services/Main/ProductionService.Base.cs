@@ -18,7 +18,7 @@ using Comment = ZoneProductionLibrary.Models.Boards.Comment;
 
 namespace ZoneProductionLibrary.ProductionServices.Main;
 
-public partial class ProductionService : IProductionService
+public partial class ProductionService
 {
     private IVanIdData _vanIdDataDB;
     private ITrelloActionData _trelloActionDataDB;
@@ -66,7 +66,7 @@ public partial class ProductionService : IProductionService
 
         
     public Dictionary<string, VanProductionInfo>      ProductionVans { get; } = new Dictionary<string, VanProductionInfo>();
-    public ConcurrentDictionary<string, TrelloMember> Members        { get; } = new ConcurrentDictionary<string, TrelloMember>();
+    public ConcurrentDictionary<string, Employee> Members        { get; } = new ConcurrentDictionary<string, Employee>();
 
     internal          ConcurrentDictionary<string, CheckObject>     _checks      = new ConcurrentDictionary<string, CheckObject>();
     internal          ConcurrentDictionary<string, ChecklistObject> _checkLists  = new ConcurrentDictionary<string, ChecklistObject>();
@@ -134,7 +134,7 @@ public partial class ProductionService : IProductionService
                                             };
 
         _trelloClient = new TrelloClient(DashboardConfig.TrelloApiKey , DashboardConfig.TrelloUserToken, clientOptions);
-        Member member;
+        TrelloDotNet.Model.Member member;
 
         try
         {
@@ -168,13 +168,13 @@ public partial class ProductionService : IProductionService
                                                         )
                                                 };
 
-            List<Member> members = await _trelloClient.GetMembersOfOrganizationAsync(organization.Id, getMemberOptions);
+            List<TrelloDotNet.Model.Member> members = await _trelloClient.GetMembersOfOrganizationAsync(organization.Id, getMemberOptions);
 
-            foreach (Member orgMember in members)
+            foreach (TrelloDotNet.Model.Member orgMember in members)
             {
                 if (!Members.ContainsKey(orgMember.Id))
                 {
-                    TrelloMember newMember = new TrelloMember(orgMember, organization.Id);
+                    Employee newMember = new Employee(orgMember, organization.Id);
                     Members.TryAdd(orgMember.Id, newMember);
 
                     Log.Logger.Debug("New member [{memberINfo}] added to production service.", newMember);
@@ -183,7 +183,7 @@ public partial class ProductionService : IProductionService
         }
     }
 
-    private async Task InitializeProductionInformation()
+    public async Task InitializeProductionInformation()
     {
         List<Card>         lineMoveBoardCards = await _trelloClient.GetCardsOnBoardAsync(LineMoveBoardId, new GetCardOptions() {IncludeList = true});
         List<TrelloAction> lineMoveActions    = await _trelloClient.GetActionsOfBoardAsync(LineMoveBoardId, ["updateCard:idList"], 1000);
@@ -411,7 +411,7 @@ public partial class ProductionService : IProductionService
             Log.Logger.Information("Line move board webhook updated.");
         }
 
-        Member clientMember = await _trelloClient.GetTokenMemberAsync();
+        TrelloDotNet.Model.Member clientMember = await _trelloClient.GetTokenMemberAsync();
         IEnumerable<Organization> memberOrganisations
             = await _trelloClient.GetOrganizationsForMemberAsync(clientMember.Id);
 
@@ -507,13 +507,13 @@ public partial class ProductionService : IProductionService
         return (true, id);
     }
 
-    public IEnumerable<TrelloMember> GetTrelloMembers(IEnumerable<string> memberIds)
+    public IEnumerable<Employee> GetTrelloMembers(IEnumerable<string> memberIds)
     {
-        List<TrelloMember> members = new List<TrelloMember>();
+        List<Employee> members = new List<Employee>();
 
         foreach (string memberId in memberIds)
         {
-            if (Members.TryGetValue(memberId, out TrelloMember? member))
+            if (Members.TryGetValue(memberId, out Employee? member))
                 members.Add(member);
             else
             {
@@ -533,10 +533,10 @@ public partial class ProductionService : IProductionService
         {
             if (_comments.TryGetValue(commentId, out CommentObject? commentObject))
             {
-                if (Members.TryGetValue(commentObject.CreatorMemberId, out TrelloMember? member))
+                if (Members.TryGetValue(commentObject.CreatorId, out Employee? member))
                     comments.Add(new Comment(commentObject, member));
                 else
-                    Log.Logger.Error("Could not find member with id:{memberId}", commentObject.CreatorMemberId);
+                    Log.Logger.Error("Could not find member with id:{memberId}", commentObject.CreatorId);
             }
             else
             {

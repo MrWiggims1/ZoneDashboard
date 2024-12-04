@@ -99,7 +99,7 @@ namespace ZoneProductionLibrary.Models.Boards
                 if (productionService._redCards.TryGetValue(redcardId, out var redCard))
                 {
                     List<Comment> comments = new List<Comment>();
-                    List<TrelloMember> redCardMembers = new List<TrelloMember>();
+                    List<Employee> redCardMembers = new List<Employee>();
 
                     foreach (var commentId in redCard.CommentIds)
                     {

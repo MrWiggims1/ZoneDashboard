@@ -162,7 +162,7 @@
             return cards;
         }
 
-        internal static List<RedCard> RandomRedcards(string boardId, string boardName, int cardCount, bool forceComplete, DateTimeOffset handoverDate, IEnumerable<TrelloMember> members, params CardAreaOfOrigin[] areasOfOrigin)
+        internal static List<RedCard> RandomRedcards(string boardId, string boardName, int cardCount, bool forceComplete, DateTimeOffset handoverDate, IEnumerable<Employee> members, params CardAreaOfOrigin[] areasOfOrigin)
         {
             List<RedCard> cards = new List<RedCard>();
 
@@ -174,7 +174,7 @@
                 CardStatus status = forceComplete ? CardStatus.Completed : (random.Next(2) == 0 ? CardStatus.Completed : CardStatus.NotStarted);
                 CardAreaOfOrigin origin = areasOfOrigin[random.Next(areasOfOrigin.Count())];
 
-                List<TrelloMember> ranMembers = new List<TrelloMember>();
+                List<Employee> ranMembers = new List<Employee>();
 
                 ranMembers.Add(members.ElementAt(i % members.Count()));
                 ranMembers.Add(members.ElementAt((i + 1) % members.Count()));

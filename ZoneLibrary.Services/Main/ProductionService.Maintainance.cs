@@ -3,7 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 
 namespace ZoneProductionLibrary.ProductionServices.Main
 {
-    public partial class ProductionService : IProductionService
+    public partial class ProductionService
     {
         public bool TryRemoveVanInfo(string id, bool removeWebhook, [NotNullWhen(true)] out VanProductionInfo? info)
         {

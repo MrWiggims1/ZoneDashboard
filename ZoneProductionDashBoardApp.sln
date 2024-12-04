@@ -20,6 +20,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ZoneDashboardDB", "ZoneDashboardDB\ZoneDashboardDB.sqlproj", "{A5FABF7D-69AC-49E2-A9F4-8548227C319D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZoneLibrary.Services", "ZoneLibrary.Services\ZoneLibrary.Services.csproj", "{032F1F03-114D-4B53-966E-F866B44E5D0C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -40,6 +42,10 @@ Global
 		{96CFB235-2670-4DF0-8734-9367B0BBA2EE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A5FABF7D-69AC-49E2-A9F4-8548227C319D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A5FABF7D-69AC-49E2-A9F4-8548227C319D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{032F1F03-114D-4B53-966E-F866B44E5D0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{032F1F03-114D-4B53-966E-F866B44E5D0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{032F1F03-114D-4B53-966E-F866B44E5D0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{032F1F03-114D-4B53-966E-F866B44E5D0C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

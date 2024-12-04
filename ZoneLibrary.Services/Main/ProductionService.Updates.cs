@@ -9,6 +9,7 @@ namespace ZoneProductionLibrary.ProductionServices.Main;
 
 public partial class ProductionService
 {
+    
     public static event EventHandler<BoardUpdateInfo>? BoardUpdated;
     public static event EventHandler<string>? VanAddedToProduction;
 

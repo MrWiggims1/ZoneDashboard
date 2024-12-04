@@ -20,7 +20,7 @@ namespace ZoneProductionLibrary.Models.Boards
         public RedFlagIssue RedFlagIssue { get; }
         public CardAreaOfOrigin AreaOfOrigin { get; }
         public DateTimeOffset? CreationDate { get; }
-        public List<TrelloMember> Members { get; }
+        public List<Employee> Members { get; }
         public List<Comment> Comments { get; }
         public List<AttachmentInfo> Attachments { get; }
         [JsonIgnore] public string MemberNames => GetMemberNames();
@@ -29,7 +29,7 @@ namespace ZoneProductionLibrary.Models.Boards
 
         public override string ToString() => $"{Name} - {Enum.GetName(typeof(CardAreaOfOrigin), AreaOfOrigin)} - {Enum.GetName(typeof(RedFlagIssue), RedFlagIssue)}";
 
-        internal RedCard(string id, string boardId, string boardName, string name, RedFlagIssue issue, CardStatus cardStatus, CardAreaOfOrigin areaOfOrigin, DateTimeOffset handoverDate, DateTimeOffset creationDate,IEnumerable<TrelloMember> members, IEnumerable<Comment> comments, DateTimeOffset? cardStatusLastUpdated)
+        internal RedCard(string id, string boardId, string boardName, string name, RedFlagIssue issue, CardStatus cardStatus, CardAreaOfOrigin areaOfOrigin, DateTimeOffset handoverDate, DateTimeOffset creationDate,IEnumerable<Employee> members, IEnumerable<Comment> comments, DateTimeOffset? cardStatusLastUpdated)
         {
             Random random = new Random();
             Id = id;
@@ -51,7 +51,7 @@ namespace ZoneProductionLibrary.Models.Boards
                 new AttachmentInfo(4.ToString(), "https://cdn-icons-png.flaticon.com/256/7853/7853199.png", "7853199.png")];
         }
 
-        internal RedCard(RedCardObject redCardObject, VanProductionInfo productionInfo, IEnumerable<TrelloMember> members, IEnumerable<Comment> comments)
+        internal RedCard(RedCardObject redCardObject, VanProductionInfo productionInfo, IEnumerable<Employee> members, IEnumerable<Comment> comments)
         {
             Id = redCardObject.Id;
             BoardId = redCardObject.BoardId;
@@ -69,7 +69,7 @@ namespace ZoneProductionLibrary.Models.Boards
             Attachments = redCardObject.Attachments;
         }
 
-        internal RedCard(RedCardObject redCardObject, string boardName, DateTimeOffset? handoverDate, IEnumerable<TrelloMember> members, IEnumerable<Comment> comments)
+        internal RedCard(RedCardObject redCardObject, string boardName, DateTimeOffset? handoverDate, IEnumerable<Employee> members, IEnumerable<Comment> comments)
         {
             Id = redCardObject.Id;
             BoardId = redCardObject.BoardId;

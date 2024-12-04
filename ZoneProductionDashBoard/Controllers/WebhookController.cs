@@ -279,12 +279,12 @@ namespace ZoneProductionDashBoard
 
         private async void OnMemberAddedToOrg(WebhookAction args)
         {
-            Member? member = await args.Data.Member.GetAsync();  //TODO: figure out why is causing crashes 
+            TrelloDotNet.Model.Member? member = await args.Data.Member.GetAsync();  //TODO: figure out why is causing crashes 
             
             if(member is null)
                 return;
 
-            var newMember = new TrelloMember(member, args.Data.Organization.Id);
+            var newMember = new Employee(member, args.Data.Organization.Id);
 
             _productionService.Members.TryAdd(member.Id, newMember);
             
@@ -293,7 +293,7 @@ namespace ZoneProductionDashBoard
 
         private void OnMemberRemovedFromOrg(WebhookAction args)
         {
-            if (_productionService.Members.TryRemove(args.Data.Member.Id, out TrelloMember? member))
+            if (_productionService.Members.TryRemove(args.Data.Member.Id, out Employee? member))
             {
                 Log.Logger.Information("Member {member} removed from organisation.", member.FullName);
             }

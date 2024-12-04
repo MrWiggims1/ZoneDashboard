@@ -1,4 +1,6 @@
-﻿namespace ZoneProductionLibrary.ProductionServices.Main;
+﻿using System.Linq.Expressions;
+
+namespace ZoneProductionLibrary.ProductionServices.Main;
 
 public partial class ProductionService
 {
@@ -18,14 +20,14 @@ public partial class ProductionService
         return GetYellowCard(redCardObject);
     }
     
-    public IEnumerable<RedCard> GetRedCards()
+    public IEnumerable<RedCard> GetRedCards(Expression<Func<RedCardObject, bool>> predicate)
     {
-        return _redCards.Values.Select(redCard => GetRedCard(redCard)).ToList();
+        return _redCards.Values.Where(predicate.Compile()).Select(GetRedCard);
     }
     
     public IEnumerable<YellowCard> GetYellowCards()
     {
-        return _yellowCards.Values.Select(yellowCard => GetYellowCard(yellowCard)).ToList();
+        return _yellowCards.Values.Select(GetYellowCard).ToList();
     }
 
     public IEnumerable<RedCard> GetRedCards(IEnumerable<VanModel> vanTypes)

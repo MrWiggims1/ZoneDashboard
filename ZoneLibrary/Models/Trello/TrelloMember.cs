@@ -4,7 +4,7 @@ using TrelloDotNet.Model;
 
 namespace ZoneProductionLibrary.Models.Trello
 {
-    public class TrelloMember
+    public class Employee
     {
         [JsonIgnore] public string Id { get; set; }
         [JsonIgnore] public string OrgId { get; set; }
@@ -12,7 +12,7 @@ namespace ZoneProductionLibrary.Models.Trello
         public string Username { get; set; }
         public string AvatarUrl { get; }
 
-        public TrelloMember(Member member, string orgId)
+        public Employee(TrelloDotNet.Model.Member member, string orgId)
         {
             Id = member.Id;
             FullName = member.FullName;
@@ -21,7 +21,7 @@ namespace ZoneProductionLibrary.Models.Trello
             AvatarUrl = member.AvatarUrl30;
         }
 
-        public TrelloMember(string id, string fullName, string username, string orgId)
+        public Employee(string id, string fullName, string username, string orgId)
         {
             Id = id;
             FullName = fullName;

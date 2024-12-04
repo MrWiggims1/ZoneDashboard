@@ -7,7 +7,7 @@ namespace ZoneProductionLibrary.Models.BoardObjects
         public string Id { get; } = action.ActionId;
         public string CardId { get; } = action.CardId;
         public string BoardId { get; } = action.BoardId;
-        public string CreatorMemberId { get; } = action.MemberId;
+        public string CreatorId { get; } = action.MemberId;
         public DateTimeOffset DateCreated { get; } = action.DateOffset;
         public string Content { get; } = string.IsNullOrEmpty(action.Content) ? "" : action.Content;
 
@@ -34,7 +34,7 @@ namespace ZoneProductionLibrary.Models.BoardObjects
             
             return x.Id == y.Id && 
                    x.CardId == y.CardId && 
-                   x.CreatorMemberId == y.CreatorMemberId && 
+                   x.CreatorId == y.CreatorId && 
                    x.DateCreated.Equals(y.DateCreated) && 
                    x.Content == y.Content;
         }
@@ -76,9 +76,9 @@ namespace ZoneProductionLibrary.Models.BoardObjects
                  report.Pass = false;
             }
             
-            if(this.CreatorMemberId != other.CreatorMemberId )
+            if(this.CreatorId != other.CreatorId )
             {
-                 report.Issues[ToString()].Add($"CreatorMemberId: {this.CreatorMemberId} != {other.CreatorMemberId}");
+                 report.Issues[ToString()].Add($"CreatorMemberId: {this.CreatorId} != {other.CreatorId}");
                  report.Pass = false;
             }
             
